@@ -24,13 +24,13 @@ if 'diaries' in st.session_state and st.session_state.diaries['전체']:
 
         emotion = entry['feeling']
         if emotion in emotion_images:
-            st.image(emotion_images[emotion], caption=f"감정: {emotion}", width=50)
+            st.image(emotion_images[emotion], width=50)
         
         # 이미지가 있는 경우 표시
         if entry.get('image') is not None:
             # 이미지 파일 열기
             image = Image.open(entry['image'])
-            st.image(image, caption="Uploaded Image", use_column_width=True)
+            st.image(image, use_column_width=True)
 
         st.write("---")
 else:
