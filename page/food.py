@@ -15,21 +15,26 @@ emotion_images = {
 
 st.title("음식 카테고리")
 
-if 'diaries' in st.session_state and st.session_state.diaries['음식']:
-    for entry in reversed(st.session_state.diaries['음식']):
-        st.write(f"카테고리: {entry['category']}")  # 카테고리 표시
-        st.subheader(entry['title'])  # 일기 제목 표시
-        st.write(entry['content'])      # 일기 내용 표시
-        
-        emotion = entry['feeling']
-        if emotion in emotion_images:
-            st.image(emotion_images[emotion], width=50)
+# 로그인 상태 확인
+if 'is_logged_in' in st.session_state and st.session_state['is_logged_in']:
+    # 로그인된 경우 '음식' 카테고리의 일기 표시
+    if 'diaries' in st.session_state and st.session_state.diaries['음식']:
+        for entry in reversed(st.session_state.diaries['음식']):
+            st.subheader(entry['title'])  # 일기 제목 표시
+            st.write(entry['content'])      # 일기 내용 표시
 
-        # 이미지가 있는 경우 표시
-        if entry.get('image') is not None:
-            # 이미지 파일 열기
-            image = Image.open(entry['image'])  # PIL로 열기
-            st.image(image, use_column_width=True)  # 이미지 표시
-        st.write("---")  # 구분선
+            emotion = entry['feeling']
+            if emotion in emotion_images:
+                st.image(emotion_images[emotion], width=50)  # 표정 이미지 표시
+
+            # 이미지가 있는 경우 표시
+            if entry.get('image') is not None:
+                # 이미지 파일 열기
+                image = Image.open(entry['image'])  # PIL로 열기
+                st.image(image, use_column_width=True)  # 이미지 표시
+            st.write("---")  # 구분선
+    else:
+        st.write("저장된 음식 일기가 없습니다.")
 else:
-    st.write("저장된 일기가 없습니다.")
+    # 로그인하지 않은 경우
+    st.write("로그인 후 음식 카테고리 일기를 볼 수 있습니다.")
