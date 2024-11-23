@@ -31,8 +31,8 @@ else:
         row = cursor.fetchone()
 
         if row:
-            db_pw = row[2]
-            db_nickname = row[3]
+            db_pw = row[2]  # 비밀번호는 3번째 열
+            db_nickname = row[4]  # 닉네임은 5번째 열
         else:
             db_pw = None
             db_nickname = None
